@@ -1,0 +1,9 @@
+﻿global using Microsoft.AspNetCore.Mvc;
+global using DataAccessLayer.EF;
+global using Microsoft.EntityFrameworkCore;
+global using UI;
+global using BusinessLogic.Interfaces;
+global using BusinessLogic.Servises;
+global using DataAccessLayer.Entities;
+global using DataAccessLayer.Interfaces;
+global using DataAccessLayer.Repositories;

@@ -1,0 +1,12 @@
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\bin\Debug\net7.0\DataAccessLayer.deps.json
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\bin\Debug\net7.0\DataAccessLayer.dll
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\bin\Debug\net7.0\DataAccessLayer.pdb
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\obj\Debug\net7.0\DataAccessLayer.csproj.AssemblyReference.cache
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\obj\Debug\net7.0\DataAccessLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\obj\Debug\net7.0\DataAccessLayer.AssemblyInfoInputs.cache
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\obj\Debug\net7.0\DataAccessLayer.AssemblyInfo.cs
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\obj\Debug\net7.0\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\obj\Debug\net7.0\DataAccessLayer.dll
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\obj\Debug\net7.0\refint\DataAccessLayer.dll
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\obj\Debug\net7.0\DataAccessLayer.pdb
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\obj\Debug\net7.0\ref\DataAccessLayer.dll
