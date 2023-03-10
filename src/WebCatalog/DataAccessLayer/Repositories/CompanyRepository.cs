@@ -42,4 +42,13 @@ public class CompanyRepository : IBaseRepository<Company>
 
         return entity;
     }
+
+    //public async Task<List<>> SelectAll()
+    //{
+    //    var response = await _dataBase.Programs
+    //        .FromSql($"SELECT * FROM dbo.Programs ")
+    //        .ToListAsync();
+
+    //    return response;
+    //}
 }

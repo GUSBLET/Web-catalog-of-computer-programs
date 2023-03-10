@@ -2,6 +2,6 @@
 
 public interface ICatalogServise
 {
-    Task<HttpStatusCode> AddNewRecord(AddingModel model);
-    Task<ModelSelection> GetModelByName(string name);
+    Task<HttpStatusCode> AddNewRecord(ModelOfItemBL model);
+    Task<List<ModelOfItemBL>> Select();
 }

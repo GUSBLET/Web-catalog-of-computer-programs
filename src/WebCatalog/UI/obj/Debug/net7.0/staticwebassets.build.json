@@ -1,11 +1,37 @@
 {
   "Version": 1,
-  "Hash": "jWug1tt+48lFkpnIoHE/8ycgXjnAX0drGi/0rLHRuks=",
+  "Hash": "umqIdbWUpMpTiFbC8NYHDGHoPwHauV9TCKyoFm+xuMs=",
   "Source": "UI",
   "BasePath": "_content/UI",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "UI\\wwwroot",
+      "Source": "UI",
+      "ContentRoot": "D:\\Visual Studio\\Projects\\WebCatalogPost\\src\\WebCatalog\\UI\\wwwroot\\",
+      "BasePath": "_content/UI",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\Visual Studio\\Projects\\WebCatalogPost\\src\\WebCatalog\\UI\\wwwroot\\css\\Form-field.css",
+      "SourceId": "UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Visual Studio\\Projects\\WebCatalogPost\\src\\WebCatalog\\UI\\wwwroot\\",
+      "BasePath": "_content/UI",
+      "RelativePath": "css/Form-field.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Form-field.css"
+    }
+  ]
 }
