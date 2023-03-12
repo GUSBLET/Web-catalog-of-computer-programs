@@ -13,3 +13,5 @@ D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\BusinessLogic\obj\Debug\
 D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\BusinessLogic\obj\Debug\net7.0\refint\BusinessLogic.dll
 D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\BusinessLogic\obj\Debug\net7.0\BusinessLogic.pdb
 D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\BusinessLogic\obj\Debug\net7.0\ref\BusinessLogic.dll
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\BusinessLogic\bin\Debug\net7.0\Domain.dll
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\BusinessLogic\bin\Debug\net7.0\Domain.pdb

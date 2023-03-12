@@ -70,3 +70,5 @@ D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\UI\obj\Debug\net7.0\UI.p
 D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\UI\obj\Debug\net7.0\UI.genruntimeconfig.cache
 D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\UI\obj\Debug\net7.0\ref\UI.dll
 D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\UI\bin\Debug\net7.0\UI.staticwebassets.runtime.json
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\UI\bin\Debug\net7.0\Domain.dll
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\UI\bin\Debug\net7.0\Domain.pdb

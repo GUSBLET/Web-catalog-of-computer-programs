@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\css\\Form-field.css"
     },
     {
+      "Id": "D:\\Visual Studio\\Projects\\WebCatalogPost\\src\\WebCatalog\\UI\\wwwroot\\css\\ItemViewStyle.css",
+      "PackagePath": "staticwebassets\\css\\ItemViewStyle.css"
+    },
+    {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.UI.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

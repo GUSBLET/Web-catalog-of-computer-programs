@@ -1,12 +1,12 @@
 ﻿namespace DataAccessLayer.Repositories;
 
-public class TypeRepository : IBaseRepository<Entities.Type>
+public class TypeRepository : IBaseRepository<Domain.Entities.Type>
 {
     private readonly ApplicationDbContext _dataBase;
 
     public TypeRepository(ApplicationDbContext dataBase) => _dataBase = dataBase;
 
-    public async Task<bool> Add(Entities.Type entity)
+    public async Task<bool> Add(Domain.Entities.Type entity)
     {
         try
         {
@@ -18,7 +18,7 @@ public class TypeRepository : IBaseRepository<Entities.Type>
         return await Task.FromResult(true);
     }
 
-    public async Task<bool> Delete(Entities.Type entity)
+    public async Task<bool> Delete(Domain.Entities.Type entity)
     {
         try
         {
@@ -30,7 +30,7 @@ public class TypeRepository : IBaseRepository<Entities.Type>
         return await Task.FromResult(true);
     }
 
-    public async Task<Entities.Type> Update(Entities.Type entity)
+    public async Task<Domain.Entities.Type> Update(Domain.Entities.Type entity)
     {
         _dataBase.Types.Update(entity);
         await _dataBase.SaveChangesAsync();
@@ -38,7 +38,7 @@ public class TypeRepository : IBaseRepository<Entities.Type>
         return entity;
     }
 
-    IQueryable<Entities.Type> IBaseRepository<Entities.Type>.Select()
+    IQueryable<Domain.Entities.Type> IBaseRepository<Domain.Entities.Type>.Select()
     {
         return _dataBase.Types;
     }

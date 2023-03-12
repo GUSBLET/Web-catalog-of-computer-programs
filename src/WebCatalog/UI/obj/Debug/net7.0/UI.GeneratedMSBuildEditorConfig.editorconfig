@@ -28,12 +28,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Visual Studio/Projects/WebCatalogPost/src/WebCatalog/UI/Views/Home/Item.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJdGVtLmNzaHRtbA==
+[D:/Visual Studio/Projects/WebCatalogPost/src/WebCatalog/UI/Views/Home/UpdateItem.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxVcGRhdGVJdGVtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Visual Studio/Projects/WebCatalogPost/src/WebCatalog/UI/Views/Home/Update.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxVcGRhdGUuY3NodG1s
+[D:/Visual Studio/Projects/WebCatalogPost/src/WebCatalog/UI/Views/Home/ViewItem.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxWaWV3SXRlbS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Visual Studio/Projects/WebCatalogPost/src/WebCatalog/UI/Views/Shared/Error.cshtml]

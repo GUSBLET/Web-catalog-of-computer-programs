@@ -9,8 +9,8 @@ public class ApplicationDbContext : DbContext
     }
 
     public DbSet<Company> Companies { get; set; }
-    public DbSet<Entities.OperatingSystem> OperatingSystems { get; set; }
-    public DbSet<Entities.Type> Types { get; set; }
+    public DbSet<Domain.Entities.OperatingSystem> OperatingSystems { get; set; }
+    public DbSet<Domain.Entities.Type> Types { get; set; }
     public DbSet<SystemRequirement> SystemRequirements { get; set; }
     public DbSet<Program> Programs { get; set; }
 
@@ -32,6 +32,12 @@ public class ApplicationDbContext : DbContext
                 .HasColumnName("Description")
                 .HasColumnType("TEXT")
                 .IsRequired(false);
+
+            buildAction
+                .Property(x => x.Weight)
+                .HasColumnName("Weight")
+                .HasColumnType("CHAR(100)")
+                .IsRequired();
 
             buildAction
                 .Property(x => x.License)

@@ -1,13 +1,10 @@
-﻿using BusinessLogic.Entities;
-using UI.Models;
-
-namespace UI.MicroServises
+﻿namespace UI.MicroServises
 {
     public class ModelConvertation
     {
-        public static ModelOfItemBL ModelConvertationToSendIntoBusinessLogicBusnesLyar(AddNewItem model)
+        public static ModelOfItemDTO ModelConvertationToSendIntoBusinessLogicLyar(AddNewItem model)
         {
-            return new ModelOfItemBL
+            return new ModelOfItemDTO
             {
                 Name = model.Name,
                 Description = model.Description,
@@ -22,8 +19,10 @@ namespace UI.MicroServises
                 OperatingSystems = model.OperatingSystems,
                 Requirements = model.Requirements,
                 Type = model.ProgramType,
-                Version = model.Version
+                Version = model.Version,
+                Weight = model.Weight
             };
-        }
+        }      
+
     }
 }

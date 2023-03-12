@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace UI.Models;
+﻿namespace UI.Models;
 
 public class AddNewItem
 {

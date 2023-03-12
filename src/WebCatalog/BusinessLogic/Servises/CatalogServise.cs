@@ -1,23 +1,19 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using System;
-
-namespace BusinessLogic.Servises;
+﻿namespace BusinessLogic.Servises;
 
 public class CatalogServise : ICatalogServise
 {
-    private readonly IBaseRepository<DataAccessLayer.Entities.Type> _typeRepository;
-    private readonly IBaseRepository<DataAccessLayer.Entities.OperatingSystem> _operatingSystemRepository;
+    private readonly IBaseRepository<Domain.Entities.Type> _typeRepository;
+    private readonly IBaseRepository<Domain.Entities.OperatingSystem> _operatingSystemRepository;
     private readonly IBaseRepository<Program> _programRepository;
     private readonly IBaseRepository<SystemRequirement> _systemRequirementRepository;
     private readonly IBaseRepository<Company> _companyRepository;
 
     public CatalogServise(
         IBaseRepository<Company> companyRepository,
-        IBaseRepository<DataAccessLayer.Entities.Type> typeRepository,
+        IBaseRepository<Domain.Entities.Type> typeRepository,
         IBaseRepository<Program> programRepository,
         IBaseRepository<SystemRequirement> systemRequirementRepository,
-        IBaseRepository<DataAccessLayer.Entities.OperatingSystem> operatingSystemRepository)
+        IBaseRepository<Domain.Entities.OperatingSystem> operatingSystemRepository)
     {
         _companyRepository = companyRepository;
         _typeRepository = typeRepository;
@@ -26,7 +22,7 @@ public class CatalogServise : ICatalogServise
         _operatingSystemRepository = operatingSystemRepository;
     }
 
-    public async Task<HttpStatusCode> AddNewRecord(ModelOfItemBL model)
+    public async Task<HttpStatusCode> AddNewRecord(ModelOfItemDTO model)
     {
         try
         {
@@ -66,8 +62,8 @@ public class CatalogServise : ICatalogServise
             }
 
             // Checking the existence of the operating systems and if company does not exist then create a new.
-            var responseOperatingSystemList = new List<DataAccessLayer.Entities.OperatingSystem>();
-            foreach (var item in SplitLine(model.Requirements))
+            var responseOperatingSystemList = new List<Domain.Entities.OperatingSystem>();
+            foreach (var item in SplitLine(model.OperatingSystems))
             {
                 var responseOperatingSystem = await _operatingSystemRepository.Select().Where(x => x.Name == LineToLowRegister(item)).FirstOrDefaultAsync();
                 if (responseOperatingSystem == null)
@@ -89,31 +85,80 @@ public class CatalogServise : ICatalogServise
         }
         catch (Exception)
         {
-
             return HttpStatusCode.InternalServerError;
         }
     }
 
-    public Task<List<ModelOfItemBL>> Select()
+    public async Task<List<ViewItemsViewModel>> Select()
     {
         try
         {
-            //var response = new List<ModelSelection>();
+            var result =
+                from programs in _programRepository.Select()
+                join companies in _companyRepository.Select() on programs.Company.Id equals companies.Id into bufferCompany
+                from subCompanies in bufferCompany.DefaultIfEmpty()
+                join types in _typeRepository.Select() on programs.Type.Id equals types.Id into bufferType
+                from subTypes in bufferType.DefaultIfEmpty()
+                select new ViewItemsViewModel
+                {
+                    Id = programs.Id,
+                    ProgramName = programs.Name,
+                    Version = programs.Version,
+                    ReleaseDate = programs.ReleaseDate,
+                    Type = subTypes.Name,
+                    CompanyName = subCompanies.Name,
+                    Logo = programs.Logo,
+                };
 
-
-
-            //for (int i = 0; i < _companyRepository.; i++)
-            //{
-
-            //}
-
-            //return response;
-            throw new NotImplementedException();
+            return result.ToList();
         }
         catch (Exception)
         {
-
             throw;
+        }
+    }
+
+    public async Task<ViewOneItemViewModel> SelectItemById(int id)
+    {
+        try
+        {
+            // Select requirements and operating systems of item.
+            var r = _programRepository.Select().Include(r => r.Requirements).Include(x => x.OperatingSystems).Where(x => x.Id == id).ToList();
+            
+            // Select item and fully fill.
+            var result =
+                from program in _programRepository.Select()
+                where program.Id == id
+                join company in _companyRepository.Select() on program.Company.Id equals company.Id into bufferCompany
+                from subCompany in bufferCompany.DefaultIfEmpty()
+                join types in _typeRepository.Select() on program.Type.Id equals types.Id into bufferType
+                from subTypes in bufferType.DefaultIfEmpty()
+
+                select new ViewOneItemViewModel
+                {
+                    Id = id,
+                    Name = program.Name,
+                    Description = program.Description,
+                    CrossPlatform = program.CrossPlatform,
+                    MultiUserMode = program.MultiUserMode,
+                    License = program.License,
+                    Version = program.Version,
+                    UsingConnection = program.UsingConnection,
+                    ReleaseDate = program.ReleaseDate,
+                    CompanyName = subCompany.Name,
+                    CompanyDescription = subCompany.Description,
+                    ProgramType = subTypes.Name,
+                    Logo = program.Logo       ,
+                    Weight = program.Weight,
+                    Requirements = MergeLine(r.First().Requirements.Select(x => x.Name).ToList()),
+                    OperatingSystems = MergeLine(r.First().OperatingSystems.Select(x => x.Name).ToList())
+                };
+
+            return result.First();
+        }
+        catch (Exception)
+        {
+            return null;
         }
     }
 
@@ -127,8 +172,8 @@ public class CatalogServise : ICatalogServise
         return line.ToLower();
     }
 
-    private Program ModelProgramPreparationForPsuh(ref ModelOfItemBL model, Company company, DataAccessLayer.Entities.Type type,
-                     List<SystemRequirement> systemRequirements, List<DataAccessLayer.Entities.OperatingSystem> operatingSystems)
+    private Program ModelProgramPreparationForPsuh(ref ModelOfItemDTO model, Company company, Domain.Entities.Type type,
+                     List<SystemRequirement> systemRequirements, List<Domain.Entities.OperatingSystem> operatingSystems)
     {
         return new Program()
         {
@@ -140,15 +185,16 @@ public class CatalogServise : ICatalogServise
             UsingConnection = model.UsingConnection,
             Version = model.Version,
             MultiUserMode = model.MultiUserMode,
-            Logo = PackingPhotos(model.Logo).Data,
+            Logo = PackingPhoto(model.Logo).Data,
             Company = company,
             Type = type,
             OperatingSystems = operatingSystems,
-            Requirements = systemRequirements
+            Requirements = systemRequirements,
+            Weight = model.Weight
         };
     }
 
-    private Company ModelCompanyPreparationForPsuh(ref ModelOfItemBL model)
+    private Company ModelCompanyPreparationForPsuh(ref ModelOfItemDTO model)
     {
         return new Company()
         {
@@ -158,21 +204,22 @@ public class CatalogServise : ICatalogServise
         };
     }
 
-    private DataAccessLayer.Entities.OperatingSystem ModelOperatingSystemPreparationForPsuh(string model)
+    private Domain.Entities.OperatingSystem ModelOperatingSystemPreparationForPsuh(string model)
     {
-        return new DataAccessLayer.Entities.OperatingSystem()
+        return new Domain.Entities.OperatingSystem()
         {
             Name = LineToLowRegister(model)
         };
     }
 
-    private DataAccessLayer.Entities.Type ModelTypePreparationForPsuh(ref ModelOfItemBL model)
+    private Domain.Entities.Type ModelTypePreparationForPsuh(ref ModelOfItemDTO model)
     {
-        return new DataAccessLayer.Entities.Type()
+        return new Domain.Entities.Type()
         {
             Name = LineToLowRegister(model.Type)
         };
     }
+
     private SystemRequirement ModelRequirementPreparationForPsuh(string model)
     {
         return new SystemRequirement()
@@ -181,24 +228,25 @@ public class CatalogServise : ICatalogServise
         };
     }
 
-    private Task<ModelOfItemBL> GetModelByIndex(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    private Task<ModelOfItemBL> GetModelByName(string name)
-    {
-        _companyRepository.Select();
-        throw new NotImplementedException();
-    }
-
-    private PhotoData PackingPhotos(IFormFile file)
+    private PhotoData PackingPhoto(IFormFile file)
     {
         using (var binaryReader = new BinaryReader(file.OpenReadStream())) 
         {
             var photo = new PhotoData(binaryReader.ReadBytes((int)file.Length));
             return photo;
         }
+    }
+
+    private string MergeLine(ICollection<string> lines)
+    {
+        string response = string.Empty;
+
+        foreach (var line in lines) 
+        { 
+            response += line + "/";
+        }
+        
+        return response.Remove(response.Length - 1);
     }
 
 }

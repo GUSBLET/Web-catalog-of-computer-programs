@@ -1,12 +1,12 @@
 ﻿namespace DataAccessLayer.Repositories;
 
-public class OperatingSystemRepository : IBaseRepository<Entities.OperatingSystem>
+public class OperatingSystemRepository : IBaseRepository<Domain.Entities.OperatingSystem>
 {
     private readonly ApplicationDbContext _dataBase;
 
     public OperatingSystemRepository(ApplicationDbContext dataBase) => _dataBase = dataBase;
 
-    public async Task<bool> Add(Entities.OperatingSystem entity)
+    public async Task<bool> Add(Domain.Entities.OperatingSystem entity)
     {
         try
         {
@@ -18,7 +18,7 @@ public class OperatingSystemRepository : IBaseRepository<Entities.OperatingSyste
         return await Task.FromResult(true);
     }
 
-    public async Task<bool> Delete(Entities.OperatingSystem entity)
+    public async Task<bool> Delete(Domain.Entities.OperatingSystem entity)
     {
         try
         {
@@ -30,12 +30,12 @@ public class OperatingSystemRepository : IBaseRepository<Entities.OperatingSyste
         return await Task.FromResult(true);
     }
 
-    public IQueryable<Entities.OperatingSystem> Select()
+    public IQueryable<Domain.Entities.OperatingSystem> Select()
     {
         return _dataBase.OperatingSystems;
     }
 
-    public async Task<Entities.OperatingSystem> Update(Entities.OperatingSystem entity)
+    public async Task<Domain.Entities.OperatingSystem> Update(Domain.Entities.OperatingSystem entity)
     {
         _dataBase.OperatingSystems.Update(entity);
         await _dataBase.SaveChangesAsync();

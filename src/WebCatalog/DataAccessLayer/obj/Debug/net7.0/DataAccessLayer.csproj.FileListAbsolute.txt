@@ -10,3 +10,6 @@ D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\obj\Debu
 D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\obj\Debug\net7.0\refint\DataAccessLayer.dll
 D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\obj\Debug\net7.0\DataAccessLayer.pdb
 D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\obj\Debug\net7.0\ref\DataAccessLayer.dll
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\bin\Debug\net7.0\Domain.dll
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\bin\Debug\net7.0\Domain.pdb
+D:\Visual Studio\Projects\WebCatalogPost\src\WebCatalog\DataAccessLayer\obj\Debug\net7.0\DataAccessLayer.csproj.CopyComplete

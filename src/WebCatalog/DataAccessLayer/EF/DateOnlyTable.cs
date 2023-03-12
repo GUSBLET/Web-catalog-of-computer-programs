@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-
-namespace DataAccessLayer.EF
+﻿namespace DataAccessLayer.EF
 {
 
     public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>

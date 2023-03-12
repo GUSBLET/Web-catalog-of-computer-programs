@@ -1,11 +1,10 @@
-﻿using UI.MicroServises;
-using UI.Models;
-
-namespace UI.Controllers;
+﻿namespace UI.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ICatalogServise _catalogServise;
+    private ICollection<ViewItemsViewModel> _listOfItems;
+    
 
     public HomeController(ICatalogServise catalogServise)
     {
@@ -14,7 +13,22 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        //_catalogServise.GetModelByName("test");
+        _listOfItems = _catalogServise.Select().Result;
+        return View(_listOfItems);
+    }
+
+    [HttpGet]
+    public IActionResult ViewItem(int id)
+    {
+        var response = _catalogServise.SelectItemById(id).Result;
+        if(response is null)
+            return RedirectToAction("Error");
+        return View(response);
+    }   
+
+    [HttpPost]
+    public IActionResult Update()
+    {
         return View();
     }
 
@@ -29,7 +43,7 @@ public class HomeController : Controller
     {
         if(ModelState.IsValid)
         {
-            var response=  await _catalogServise.AddNewRecord(ModelConvertation.ModelConvertationToSendIntoBusinessLogicBusnesLyar(model));
+            var response =  await _catalogServise.AddNewRecord(ModelConvertation.ModelConvertationToSendIntoBusinessLogicLyar(model));
             if(response == System.Net.HttpStatusCode.OK)
                 return RedirectToAction("Index");
 

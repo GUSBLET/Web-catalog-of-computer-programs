@@ -2,6 +2,7 @@
 
 public interface ICatalogServise
 {
-    Task<HttpStatusCode> AddNewRecord(ModelOfItemBL model);
-    Task<List<ModelOfItemBL>> Select();
+    Task<HttpStatusCode> AddNewRecord(ModelOfItemDTO model);
+    Task<List<ViewItemsViewModel>> Select();
+    Task<ViewOneItemViewModel> SelectItemById(int id);
 }
