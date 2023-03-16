@@ -1,0 +1,134 @@
+﻿@model Domain.ViewModels.ViewUpdateOneItemViewModel
+@{
+    string day;
+    string month;
+    if (Model.ReleaseDate.Day < 10)
+        day = "0" + Model.ReleaseDate.Day;
+    else
+        day = Model.ReleaseDate.Day.ToString();
+    if (Model.ReleaseDate.Month < 10)
+        month = "0" + Model.ReleaseDate.Month;
+    else
+        month = Model.ReleaseDate.Month.ToString();
+
+    string dateFilter = $"{Model.ReleaseDate.Year}-{month}-{day}";
+}
+<section class="bg-light" id="ViewOfItem">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mb-4 mb-sm-5">
+                <div class="card card-style1 border-0">
+                    <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
+                        <div class="row align-items-center">
+                            @*<div class="col-lg-6 mb-4 mb-lg-0">*@
+                                <img src="data:image/png;base64, @Convert.ToBase64String(Model.Logo)" alt="...">
+                            @*</div>*@
+                            <div class="col-lg-6 px-xl-10">
+                                <div class="bg-secondary d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded">
+                                    <h3 class="h2 text-white mb-0">@Model.Name</h3>
+                                </div>
+                                <ul class="list-unstyled mb-1-9">
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Description of program:</span> @Model.Description</li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Company name:</span> @Model.CompanyName</li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Company description:</span> @Model.CompanyDescription</li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Description of program:</span> @Model.Description</li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Date realese:</span> @Model.ReleaseDate</li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Version:</span> @Model.Version</li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Type:</span> @Model.ProgramType</li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Weight:</span> @Model.Weight</li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Operating systems are supported by program:</span> @Model.OperatingSystems</li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Requirements of program:</span> @Model.Requirements</li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">License: </span><input type="checkbox" disabled="disabled" asp-for="License" /></li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Cross platform: </span><input type="checkbox" disabled="disabled" asp-for="CrossPlatform" /></li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Using connection: </span><input type="checkbox" disabled="disabled" asp-for="UsingConnection" /></li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Multi-user mode: </span><input type="checkbox" disabled="disabled" asp-for="MultiUserMode" /></li>
+                                </ul>
+                                <button class="btn btn-primary" onclick="ChangingMode()">Changing mode</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+    
+</section>
+
+<div id="UpdateItem" style="display: none;">
+        <form class="was-validated" name="adding" asp-controller="Home" asp-action="UpdateItem" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-field">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" placeholder="Enter name of program" required>
+            </div>
+            <div class="form-field">
+                <label class="form-label" asp-for="Description"></label>
+                <textarea class="form-control" asp-for="Description" maxlength="1000" placeholder="Enter description about program"></textarea>
+                <div class="invalid-feedback">
+                    Please enter a description of program.
+                </div>
+            </div>
+            <div class="form-field">
+                <label asp-for="CompanyName"></label>
+                <input asp-for="CompanyName" class="form-control" placeholder="Enter company name" required>
+            </div>
+            <div class="form-field">
+                <label class="form-label" asp-for="CompanyDescription"></label>
+                <textarea class="form-control" asp-for="CompanyDescription" maxlength="1000" placeholder="Enter description about program"></textarea>
+                <div class="invalid-feedback">
+                    Please enter a description of company.
+                </div>
+            </div>
+            <div class="form-field">
+                <label asp-for="Weight"></label>
+                <input asp-for="Weight" class="form-control" placeholder="Enter weight of program" required>
+            </div>
+
+            <div class="form-field">
+                <label asp-for="ProgramType"></label>
+                <input asp-for="ProgramType" class="form-control" placeholder="Enter program type" required>
+            </div>
+            <div class="form-field">
+                <label asp-for="Version"></label>
+                <input asp-for="Version" class="form-control" placeholder="Enter program version" required>
+            </div>
+            <div class="form-field">
+                <label asp-for="License" class="form-check-label"></label>
+                <input asp-for="License" type="checkbox" class="form-check-input">
+            </div>
+            <div class="form-field">
+                <label asp-for="MultiUserMode" class="form-check-label"></label>
+                <input asp-for="MultiUserMode" type="checkbox" class="form-check-input">
+            </div>
+            <div class="form-field">
+                <label asp-for="UsingConnection" class="form-check-label"></label>
+                <input asp-for="UsingConnection" type="checkbox" class="form-check-input">
+            </div>
+            <div class="form-field">
+                <label asp-for="CrossPlatform" class="form-check-label"></label>
+                <input asp-for="CrossPlatform" type="checkbox" class="form-check-input">
+            </div>
+            <div class="form-field">
+                <input type="file" asp-for="NewLogo" name="NewLogo" class="form-control" aria-label="file example" accept=".png,.jpg,.JPG" >
+                <div class="invalid-feedback">Example invalid form file feedback</div>
+            </div>
+            <div class="form-field">
+                <label asp-for="ReleaseDate"></label>
+                <input asp-for="ReleaseDate" class="form-control" min="1900-01-01" value="@dateFilter" placeholder="Enter realese date" required>
+            </div>
+            <div class="form-field">
+                <label asp-for="Requirements"></label>
+                <input asp-for="Requirements" class="form-control" placeholder="Enter requirement for program" required>
+            </div>
+            <div class="form-field">
+                <label asp-for="OperatingSystems"></label>
+                <input asp-for="OperatingSystems" class="form-control" placeholder="Enter operating systems that are supported" required>
+                <input asp-for="Id" hidden>
+            </div>
+            
+            <div class="form-field">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button class="btn btn-primary" onclick="ChangingMode()" type="button">Changing mode</button>
+            </div>
+        </form>
+</div>

@@ -1,0 +1,19 @@
+﻿@model List<Domain.ViewModels.ViewItemsViewModel>
+@{
+}
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="card form-field" style="width: 24rem;  ">
+        <img src="data:image/png;base64, @Convert.ToBase64String(@item.Logo)" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">@item.ProgramName</h5>
+            <p class="card-text">Company name:@item.CompanyName</p>
+            <p class="card-text">Program type:@item.Type</p>
+            <p class="card-text">Program verson: @item.Version</p>
+            <p class="card-text">Release date: @item.ReleaseDate</p>
+            <a href="@Url.Action("ViewItem", "Home", new {Id = item.Id})" class="btn btn-primary">View</a>
+        </div>
+    </div>    
+    }
+</div>

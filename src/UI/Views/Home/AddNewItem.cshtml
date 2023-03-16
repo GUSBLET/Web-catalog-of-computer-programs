@@ -1,0 +1,78 @@
+﻿@model Domain.ViewModels.AddNewItemViewModel
+@{
+}
+<form class="was-validated" name="adding" asp-controller="Home" asp-action="AddNewItem" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-field">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" placeholder="Enter name of program" required>
+    </div>
+    <div class="form-field">
+        <label class="form-label" asp-for="Description"></label>
+        <textarea class="form-control" asp-for="Description" maxlength="1000" placeholder="Enter description about program"></textarea>
+        <div class="invalid-feedback">
+            Please enter a description of program.
+        </div>
+    </div>
+    <div class="form-field">
+        <label asp-for="CompanyName"></label>
+        <input asp-for="CompanyName" class="form-control" placeholder="Enter company name" required>
+    </div>
+    <div class="form-field">
+        <label class="form-label" asp-for="CompanyDescription"></label>
+        <textarea class="form-control" asp-for="CompanyDescription" maxlength="1000" placeholder="Enter description about program"></textarea>
+        <div class="invalid-feedback">
+            Please enter a description of company.
+        </div>
+    </div>
+    <div class="form-field">
+        <label asp-for="Weight"></label>
+        <input asp-for="Weight" class="form-control" placeholder="Enter weight of program" required>
+    </div>
+    
+    <div class="form-field">
+        <label asp-for="ProgramType"></label>
+        <input asp-for="ProgramType" class="form-control" placeholder="Enter program type" required>
+    </div>
+    <div class="form-field">
+        <label asp-for="Version"></label>
+        <input asp-for="Version" class="form-control" placeholder="Enter program version" required>
+    </div>
+    <div class="form-field">
+        <label asp-for="License" class="form-check-label"></label>
+        <input asp-for="License" type="checkbox" class="form-check-input">
+    </div>
+    <div class="form-field">
+        <label asp-for="MultiUserMode" class="form-check-label"></label>
+        <input asp-for="MultiUserMode" type="checkbox" class="form-check-input">
+    </div>
+    <div class="form-field">
+        <label asp-for="UsingConnection" class="form-check-label"></label>
+        <input asp-for="UsingConnection" type="checkbox" class="form-check-input">
+    </div>
+    <div class="form-field">
+        <label asp-for="CrossPlatform" class="form-check-label"></label>
+        <input asp-for="CrossPlatform" type="checkbox" class="form-check-input">
+    </div>
+    <div class="form-field">
+        <input type="file" asp-for="Logo" name="Logo" class="form-control" aria-label="file example" accept=".png,.jpg,.JPG" required>
+        <div class="invalid-feedback">Example invalid form file feedback</div>
+    </div>
+    <div class="form-field">
+        <label asp-for="ReleaseDate"></label>
+        <input asp-for="ReleaseDate" min="1900-01-01" class="form-control" placeholder="Enter realese date" required>
+    </div>
+    <div class="form-field">
+        <label asp-for="Requirements"></label>
+        <input asp-for="Requirements" class="form-control" placeholder="Enter requirement for program" required>
+    </div>
+    <div class="form-field">
+        <label asp-for="OperatingSystems"></label>
+        <input asp-for="OperatingSystems" class="form-control" placeholder="Enter operating systems that are supported" required>
+    </div>
+    
+    <div class="form-field">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+
