@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Text;
+using System.Xml;
 
 namespace BusinessLogic.Servises;
 
@@ -122,26 +123,44 @@ public class CatalogServise : ICatalogServise
                 responseType = await _typeRepository.Select().Where(x => x.Name == LineToLowRegister(model.ProgramType)).FirstOrDefaultAsync();
             }
 
+            var bufferRequirments = upgratePrpgram.Requirements.Select(x => x.Name).ToList();
             foreach (var item in SplitLine(model.Requirements))
             {
-                var responseRequirement = await _systemRequirementRepository.Select().Where(x => x.Name == LineToLowRegister(item)).FirstOrDefaultAsync();
-                if (responseRequirement == null)
+                if(!bufferRequirments.Contains(item))
                 {
-                    await _systemRequirementRepository.Add(ModelRequirementPreparationForPsuh(item));
-                    responseRequirement = await _systemRequirementRepository.Select().Where(x => x.Name == LineToLowRegister(item)).FirstOrDefaultAsync();
-                    upgratePrpgram.Requirements.Add(responseRequirement);
+                    var responseRequirement = await _systemRequirementRepository.Select().Where(x => x.Name == LineToLowRegister(item)).FirstOrDefaultAsync();
+                    if (responseRequirement == null)
+                    {
+                        await _systemRequirementRepository.Add(ModelRequirementPreparationForPsuh(item));
+                        responseRequirement = await _systemRequirementRepository.Select().Where(x => x.Name == LineToLowRegister(item)).FirstOrDefaultAsync();
+                        upgratePrpgram.Requirements.Add(responseRequirement);
+                    }
                 }
             }
+            foreach (var item in CompareData(SplitLine(model.Requirements).ToList(), bufferRequirments.ToList()))
+            {
+                var responseRequirement = await _systemRequirementRepository.Select().Where(x => x.Name == LineToLowRegister(item)).FirstOrDefaultAsync();
+                upgratePrpgram.Requirements.Remove(responseRequirement);
+            }
 
-            foreach (var item in SplitLine(model.OperatingSystems))
+            var bufferSystems = upgratePrpgram.OperatingSystems.Select(x => x.Name).ToList();
+            foreach (var item in CompareData(SplitLine(model.OperatingSystems).ToList(), upgratePrpgram.OperatingSystems.Select(x => x.Name).ToList()))
+            {
+                if (!bufferSystems.Contains(item))
+                {
+                    var responseOperatingSystem = await _operatingSystemRepository.Select().Where(x => x.Name == LineToLowRegister(item)).FirstOrDefaultAsync();
+                    if (responseOperatingSystem == null)
+                    {
+                        await _operatingSystemRepository.Add(ModelOperatingSystemPreparationForPsuh(item));
+                        responseOperatingSystem = await _operatingSystemRepository.Select().Where(x => x.Name == LineToLowRegister(item)).FirstOrDefaultAsync();
+                        upgratePrpgram.OperatingSystems.Add(responseOperatingSystem);
+                    }
+                }
+            }
+            foreach (var item in CompareData(SplitLine(model.OperatingSystems).ToList(), bufferSystems.ToList()))
             {
                 var responseOperatingSystem = await _operatingSystemRepository.Select().Where(x => x.Name == LineToLowRegister(item)).FirstOrDefaultAsync();
-                if (responseOperatingSystem == null)
-                {
-                    await _operatingSystemRepository.Add(ModelOperatingSystemPreparationForPsuh(item));
-                    responseOperatingSystem = await _operatingSystemRepository.Select().Where(x => x.Name == LineToLowRegister(item)).FirstOrDefaultAsync();
-                    upgratePrpgram.OperatingSystems.Add(responseOperatingSystem);
-                }
+                upgratePrpgram.OperatingSystems.Remove(responseOperatingSystem);
             }
 
             // Updatee logo of program
@@ -210,7 +229,6 @@ public class CatalogServise : ICatalogServise
                 from subCompany in bufferCompany.DefaultIfEmpty()
                 join types in _typeRepository.Select() on program.Type.Id equals types.Id into bufferType
                 from subTypes in bufferType.DefaultIfEmpty()
-                join requirement in _systemRequirementRepository.Select() on program.Id equals requirement.Id into bufferRequirements
                 select new ViewUpdateOneItemViewModel
                 {
                     Id = id,
@@ -239,7 +257,7 @@ public class CatalogServise : ICatalogServise
         }
     }
 
-    private string[] SplitLine(string line)
+    private ICollection<string> SplitLine(string line)
     {
         return line.Split('/');
     }
@@ -247,6 +265,11 @@ public class CatalogServise : ICatalogServise
     private string LineToLowRegister(string line)
     {
         return line.ToLower();
+    }
+
+    private List<string> CompareData(List<string> newData, List<string> lastRequirements)
+    {
+        return lastRequirements.Except(newData).ToList();
     }
 
     private Program ModelProgramPreparationForPsuh(ref ModelOfItemDTO model, Company company, Domain.Entities.Type type,
